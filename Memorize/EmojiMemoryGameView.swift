@@ -15,17 +15,51 @@ struct EmojiMemoryGameView: View {
             CardView (card: card).onTapGesture {
                 viewModel.choose(card: card)
             }
-            .padding(5)
+            .padding(3)
+            
         }
     
         
         .padding()
-        .foregroundColor(Color.orange)
+        .foregroundColor(Color.purple)
+        Button("Reiniciar") {
+        }
+        .padding()
+        .background(Color.blue)
+        .foregroundColor(Color.white)
+        .cornerRadius(10)
+        .padding(.all, 10)
         
         
     }
 }
 
+struct RestartButtonView: View {
+    @State private var restartButtonTapped = false
+
+    var body: some View {
+        VStack {
+            Text("Conteúdo da Tela")
+
+            Button("Reiniciar Tela") {
+                // Ação quando o botão é pressionado
+                restartButtonTapped.toggle()
+            }
+            .padding()
+            .background(Color.blue)
+            .foregroundColor(Color.white)
+            .cornerRadius(10)
+            .padding(.top, 20)
+        }
+        .id(restartButtonTapped) // A variável de estado como identificador
+    }
+}
+
+struct RestartButtonView_Previews: PreviewProvider {
+    static var previews: some View {
+        RestartButtonView()
+    }
+}
 struct CardView: View {
     var card: MemoryGame<String>.Card
     
@@ -38,7 +72,7 @@ struct CardView: View {
         func body(for size: CGSize) -> some View {
             ZStack {
                 if card.isFaceUp {
-                    RoundedRectangle(cornerRadius: corneRadius).fill(Color.white)
+                    RoundedRectangle(cornerRadius: corneRadius).fill(Color.gray)
                     RoundedRectangle(cornerRadius: corneRadius).stroke(lineWidth: edgeLineWidth)
                     Text(card.content)
                 } else {
@@ -62,7 +96,11 @@ struct CardView: View {
     
     struct ContentView_Previews: PreviewProvider {
         static var previews: some View {
-            EmojiMemoryGameView(viewModel: EmojiMemoryGame())
+            VStack{
+                EmojiMemoryGameView(viewModel: EmojiMemoryGame())
+                
+            }
+            
         }
     }
     
